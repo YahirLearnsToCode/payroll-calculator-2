@@ -1,13 +1,12 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class ReadingEmployee {
     public static void main(String[] args) {
         try {
             BufferedReader bufReader = new BufferedReader(new FileReader("employees.csv"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("payroll.csv"));
 
             String input;
 
@@ -22,7 +21,13 @@ public class ReadingEmployee {
                 Employee employee = new Employee(empID,empName,empHoursWorked,empPayrate);
 
                 System.out.printf("Employee ID: %s Employee Name: %s Gross Pay: %.2f \n",employee.getEmployeeId(),employee.getName(), employee.getGrossPay());
+
+                //Exercise Writing to files
+                writer.write(employee.getEmployeeId() +"|" + employee.getName() + "|" + employee.getGrossPay() +"\n");
             }
+
+            bufReader.close();
+            writer.close();
 
         }
         catch (IOException e) {
